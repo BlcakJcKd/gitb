@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+SYNC_SCRIPT="$REPO_ROOT/scripts/sync_installed_gitb.sh"
+
+if [[ ! -x "$SYNC_SCRIPT" ]]; then
+  exit 0
+fi
+
+prev="${1:-}"
+curr="${2:-}"
+is_branch_checkout="${3:-0}"
+
+if [[ "$is_branch_checkout" == "1" ]] || git diff --name-only "$prev" "$curr" | grep -qx "git_bulk.py"; then
+  "$SYNC_SCRIPT"
+fi

@@ -96,6 +96,24 @@ Usage:
 gitb status
 ```
 
+### Auto-sync installed script after updates (optional)
+
+If your `gitb` symlink points to `/home/bivin/scripts/git_bulk.py`, run:
+
+```bash
+./scripts/install_local_hooks.sh
+./scripts/sync_installed_gitb.sh
+```
+
+After this one-time setup, any commit/checkout/merge that changes `git_bulk.py`
+will automatically copy the updated file to `/home/bivin/scripts/git_bulk.py`.
+
+If you use a different install target, set:
+
+```bash
+export GITB_INSTALL_PATH="/your/path/git_bulk.py"
+```
+
 ---
 
 # 📖 Usage & Cheatsheet

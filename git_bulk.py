@@ -25,6 +25,19 @@
 #
 # The script never stores passwords/passphrases; it just uses your normal
 # shell environment (ssh-agent, Git credential manager, etc).
+#
+# Local Git Hooks:
+#   - post-commit: auto-syncs to GITB_INSTALL_PATH (default: /home/bivin/scripts/git_bulk.py)
+#   - post-checkout: auto-syncs to GITB_INSTALL_PATH
+#   - post-merge: auto-syncs to GITB_INSTALL_PATH
+#
+# To install hooks:
+#   chmod +x scripts/install_local_hooks.sh
+#   ./scripts/install_local_hooks.sh
+#
+# To change sync destination:
+#   export GITB_INSTALL_PATH=/path/to/new/location
+#   ./scripts/install_local_hooks.sh
 
 import os
 import subprocess
