@@ -56,9 +56,27 @@ def get_git_subdirs(root_dir):
     items = sorted(os.listdir(root_dir))
     for item in items:
         full_path = os.path.join(root_dir, item)
-        if os.path.isdir(full_path) and os.path.isdir(os.path.join(full_path, ".git")):
+        if os.path.isdir(full_path) and os.path.exists(os.path.join(full_path, ".git")):
             repos.append(full_path)
     return repos
+
+
+def get_current_repo_root(start_dir):
+    try:
+        result = subprocess.run(
+            ["git", "rev-parse", "--show-toplevel"],
+            cwd=start_dir,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="ignore",
+            env=GLOBAL_ENV,
+        )
+        if result.returncode == 0:
+            return os.path.abspath(result.stdout.strip())
+    except Exception:
+        return None
+    return None
 
 
 def find_repo(repos, target_name):
@@ -354,6 +372,10 @@ def main():
     args = parser.parse_args()
     root_dir = os.getcwd()
     repos = get_git_subdirs(root_dir)
+    if not repos:
+        current_repo_root = get_current_repo_root(root_dir)
+        if current_repo_root:
+            repos = [current_repo_root]
 
     # Resolve target repos if -o/--one given
     target_repos = repos

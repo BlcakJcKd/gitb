@@ -100,7 +100,9 @@ gitb status
 
 # 📖 Usage & Cheatsheet
 
-Run `gitb` inside a **parent directory** containing Git repositories.
+Run `gitb` either:
+- inside a **parent directory** containing Git repositories, or
+- directly inside a **single Git repository** (or one of its subfolders) to operate on that repo only.
 
 ---
 
@@ -176,7 +178,7 @@ ssh-add ~/.ssh/id_ed25519
 
 ### Repo not detected
 
-Ensure you're running inside the parent directory containing Git repos.
+Run from either the parent directory containing repos, or from inside a Git repo (single-repo mode).
 
 ---
 
